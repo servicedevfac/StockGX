@@ -9,9 +9,6 @@
                 <h3 class="page-title mb-1 text-dark fw-bold">
                     <i class="fas fa-wallet text-primary me-2"></i> Gestion des Dépenses
                 </h3>
-                <p class="text-muted mb-0 font-size-14">
-                    Suivez, catégorisez et analysez toutes les charges liées à votre commerce (loyer, électricité, salaires, transport, fournitures...).
-                </p>
             </div>
             <div class="d-flex flex-wrap gap-2">
                 @can('create depense')
