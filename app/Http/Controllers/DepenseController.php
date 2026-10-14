@@ -125,6 +125,19 @@ class DepenseController extends Controller
             'beneficiaire' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'justificatif' => 'nullable|file|mimes:jpeg,png,jpg,webp,pdf|max:5120', // Max 5MB
+        ], [
+            'titre.required'         => 'Le libellé de la dépense est obligatoire.',
+            'titre.max'              => 'Le libellé ne peut pas dépasser 255 caractères.',
+            'categorie.required'     => 'Veuillez sélectionner une catégorie.',
+            'montant.required'       => 'Le montant de la dépense est obligatoire.',
+            'montant.numeric'        => 'Le montant doit être une valeur numérique.',
+            'montant.min'            => 'Le montant doit être d\'au moins 1 FCFA.',
+            'date_depense.required'  => 'La date de la dépense est obligatoire.',
+            'date_depense.date'      => 'La date de la dépense n\'est pas valide.',
+            'mode_paiement.required' => 'Veuillez sélectionner un mode de paiement.',
+            'justificatif.file'      => 'Le justificatif doit être un fichier valide.',
+            'justificatif.mimes'     => 'Le justificatif doit être au format JPG, PNG, WEBP ou PDF.',
+            'justificatif.max'       => 'La taille du justificatif ne doit pas dépasser 5 Mo.',
         ]);
 
         $data = $request->only([
@@ -201,6 +214,19 @@ class DepenseController extends Controller
             'beneficiaire' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'justificatif' => 'nullable|file|mimes:jpeg,png,jpg,webp,pdf|max:5120',
+        ], [
+            'titre.required'         => 'Le libellé de la dépense est obligatoire.',
+            'titre.max'              => 'Le libellé ne peut pas dépasser 255 caractères.',
+            'categorie.required'     => 'Veuillez sélectionner une catégorie.',
+            'montant.required'       => 'Le montant de la dépense est obligatoire.',
+            'montant.numeric'        => 'Le montant doit être une valeur numérique.',
+            'montant.min'            => 'Le montant doit être d\'au moins 1 FCFA.',
+            'date_depense.required'  => 'La date de la dépense est obligatoire.',
+            'date_depense.date'      => 'La date de la dépense n\'est pas valide.',
+            'mode_paiement.required' => 'Veuillez sélectionner un mode de paiement.',
+            'justificatif.file'      => 'Le justificatif doit être un fichier valide.',
+            'justificatif.mimes'     => 'Le justificatif doit être au format JPG, PNG, WEBP ou PDF.',
+            'justificatif.max'       => 'La taille du justificatif ne doit pas dépasser 5 Mo.',
         ]);
 
         $data = $request->only([

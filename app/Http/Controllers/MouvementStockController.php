@@ -64,6 +64,17 @@ class MouvementStockController extends Controller
             'quantite'       => 'required|integer|min:1',
             'motif'          => 'required|string|max:255',
             'date_mouvement' => 'required|date',
+        ], [
+            'produit_id.required'     => 'Veuillez sélectionner un produit.',
+            'produit_id.exists'       => 'Le produit sélectionné n\'existe pas.',
+            'type_mouvement.required' => 'Le type de mouvement est obligatoire.',
+            'type_mouvement.in'       => 'Le type de mouvement doit être entrée ou sortie.',
+            'quantite.required'       => 'La quantité est obligatoire.',
+            'quantite.integer'        => 'La quantité doit être un nombre entier.',
+            'quantite.min'            => 'La quantité doit être d\'au moins 1.',
+            'motif.required'          => 'Le motif du mouvement est obligatoire.',
+            'date_mouvement.required' => 'La date du mouvement est obligatoire.',
+            'date_mouvement.date'     => 'La date du mouvement n\'est pas valide.',
         ]);
 
         $produit = Produit::findOrFail($validated['produit_id']);
@@ -152,6 +163,19 @@ class MouvementStockController extends Controller
             'quantite'       => 'required|integer|min:1',
             'motif'          => 'required|string|max:255',
             'date_mouvement' => 'required|date',
+        ], [
+            'produit_id.required'     => 'Veuillez sélectionner un produit.',
+            'produit_id.exists'       => 'Le produit sélectionné n\'existe pas.',
+            'user_id.required'        => 'Veuillez sélectionner un utilisateur.',
+            'user_id.exists'          => 'L\'utilisateur sélectionné n\'existe pas.',
+            'type_mouvement.required' => 'Le type de mouvement est obligatoire.',
+            'type_mouvement.in'       => 'Le type de mouvement doit être entrée ou sortie.',
+            'quantite.required'       => 'La quantité est obligatoire.',
+            'quantite.integer'        => 'La quantité doit être un nombre entier.',
+            'quantite.min'            => 'La quantité doit être d\'au moins 1.',
+            'motif.required'          => 'Le motif du mouvement est obligatoire.',
+            'date_mouvement.required' => 'La date du mouvement est obligatoire.',
+            'date_mouvement.date'     => 'La date du mouvement n\'est pas valide.',
         ]);
 
         $mouvementStock->update([

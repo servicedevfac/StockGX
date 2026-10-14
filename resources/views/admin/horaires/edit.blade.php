@@ -47,12 +47,18 @@
                                 <tr>
                                     <td class="fw-semibold text-dark">{{ ucfirst($jour) }}</td>
                                     <td>
-                                        <input type="time" class="form-control" name="heure_ouverture[{{ $jour }}]"
-                                            value="{{ $horaires[$jour]->heure_ouverture ?? '' }}" required>
+                                        <input type="time" class="form-control @error('heure_ouverture.'.$jour) is-invalid @enderror" name="heure_ouverture[{{ $jour }}]"
+                                            value="{{ old('heure_ouverture.'.$jour, $horaires[$jour]->heure_ouverture ?? '') }}" required>
+                                        @error('heure_ouverture.'.$jour)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </td>
                                     <td>
-                                        <input type="time" class="form-control" name="heure_fermeture[{{ $jour }}]"
-                                            value="{{ $horaires[$jour]->heure_fermeture ?? '' }}" required>
+                                        <input type="time" class="form-control @error('heure_fermeture.'.$jour) is-invalid @enderror" name="heure_fermeture[{{ $jour }}]"
+                                            value="{{ old('heure_fermeture.'.$jour, $horaires[$jour]->heure_fermeture ?? '') }}" required>
+                                        @error('heure_fermeture.'.$jour)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </td>
                                 </tr>
                                 @endforeach

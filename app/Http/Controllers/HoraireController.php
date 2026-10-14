@@ -63,6 +63,9 @@ class HoraireController extends Controller
         $request->validate([
             'heure_ouverture.*' => ['nullable', 'date_format:H:i'],
             'heure_fermeture.*' => ['nullable', 'date_format:H:i'],
+        ], [
+            'heure_ouverture.*.date_format' => 'L\'heure d\'ouverture doit être au format valide (HH:MM).',
+            'heure_fermeture.*.date_format' => 'L\'heure de fermeture doit être au format valide (HH:MM).',
         ]);
 
         $jours = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];

@@ -43,18 +43,27 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('ventes.store') }}" novalidate>
+                <form method="POST" action="{{ route('ventes.store') }}" class="needs-validation" novalidate>
                     @csrf
 
                     {{-- Client --}}
                     <div class="mb-4">
                         <label for="client_id" class="form-label">Client <span class="text-danger">*</span></label>
-                        <select id="client-select" name="client_id" class="form-control" required style="width: 100%;">
+                        <select id="client-select" name="client_id" class="form-control @error('client_id') is-invalid @enderror" required style="width: 100%;">
                             <!-- AJAX rempli par Select2 -->
                         </select>
+                        @error('client_id')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     {{-- Tableau produits --}}
+                    @error('produits')
+                        <div class="alert alert-danger py-2 px-3 mb-3 d-flex align-items-center gap-2 font-size-13">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>{{ $message }}</span>
+                        </div>
+                    @enderror
                     <div class="table-responsive mb-3">
                         <table class="table table-bordered align-middle mb-0" id="produits-table">
                             <thead class="table-dark">
@@ -125,15 +134,21 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="date_vente" class="form-label">Date de vente <span class="text-danger">*</span></label>
-                            <input type="date" name="date_vente" id="date_vente" class="form-control" value="{{ now()->format('Y-m-d') }}" required>
+                            <input type="date" name="date_vente" id="date_vente" class="form-control @error('date_vente') is-invalid @enderror" value="{{ old('date_vente', now()->format('Y-m-d')) }}" required>
+                            @error('date_vente')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label for="mode_paiement" class="form-label">Mode de paiement <span class="text-danger">*</span></label>
-                            <select name="mode_paiement" id="mode_paiement" class="form-select" required>
-                                <option value="espèces">Espèces</option>
-                                <option value="mobile money">Mobile Money</option>
-                                <option value="carte">Carte</option>
+                            <select name="mode_paiement" id="mode_paiement" class="form-select @error('mode_paiement') is-invalid @enderror" required>
+                                <option value="espèces" {{ old('mode_paiement') == 'espèces' ? 'selected' : '' }}>Espèces</option>
+                                <option value="mobile money" {{ old('mode_paiement') == 'mobile money' ? 'selected' : '' }}>Mobile Money</option>
+                                <option value="carte" {{ old('mode_paiement') == 'carte' ? 'selected' : '' }}>Carte</option>
                             </select>
+                            @error('mode_paiement')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         {{-- Champ Avance (uniquement si crédit) --}}

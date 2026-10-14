@@ -823,18 +823,34 @@ html, body {
 }
 
 .invalid-feedback {
+    display: none;
     font-size: 12.5px !important;
     font-weight: 500 !important;
     color: var(--danger) !important;
     margin-top: 5px !important;
 }
 
+.is-invalid ~ .invalid-feedback,
+.was-validated :invalid ~ .invalid-feedback,
+.d-block.invalid-feedback {
+    display: block !important;
+}
+
+.input-group > .invalid-feedback {
+    width: 100% !important;
+    order: 3;
+}
+
+.was-validated .form-control:invalid,
+.was-validated .form-select:invalid,
 .form-control.is-invalid,
 .form-select.is-invalid {
     border-color: var(--danger) !important;
     background-image: none !important;
 }
 
+.was-validated .form-control:invalid:focus,
+.was-validated .form-select:invalid:focus,
 .form-control.is-invalid:focus,
 .form-select.is-invalid:focus {
     box-shadow: 0 0 0 3px rgba(239, 68, 68, .15) !important;

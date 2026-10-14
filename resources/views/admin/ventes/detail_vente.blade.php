@@ -109,7 +109,22 @@
                             </span>
                         </div>
 
-                        <form action="{{ route('paiements.store', $vente->id) }}" method="POST" id="form-paiement">
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <strong>Erreur de validation :</strong>
+                                </div>
+                                <ul class="mb-0 ps-3">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        <form action="{{ route('paiements.store', $vente->id) }}" method="POST" id="form-paiement" class="needs-validation" novalidate>
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 mb-3">
@@ -119,12 +134,15 @@
                                     <input type="number" 
                                            id="montant_paiement" 
                                            name="montant" 
-                                           class="form-control" 
+                                           class="form-control @error('montant') is-invalid @enderror" 
                                            min="1" 
                                            max="{{ $vente->reste_a_payer }}" 
                                            step="any" 
                                            value="{{ old('montant', $vente->reste_a_payer) }}" 
                                            required>
+                                    @error('montant')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                     <div class="form-text" id="montant-helper">
                                         Montant maximum autorisé : <strong>{{ number_format($vente->reste_a_payer, 0, ',', ' ') }} FCFA</strong>
                                     </div>
@@ -136,7 +154,7 @@
                                     <label for="mode_paiement" class="form-label fw-bold">
                                         Mode de paiement <span class="text-danger">*</span>
                                     </label>
-                                    <select name="mode_paiement" id="mode_paiement" class="form-select" required>
+                                    <select name="mode_paiement" id="mode_paiement" class="form-select @error('mode_paiement') is-invalid @enderror" required>
                                         <option value="">-- Choisir un moyen de paiement --</option>
                                         <option value="espèces" {{ old('mode_paiement') == 'espèces' ? 'selected' : '' }}>Espèces</option>
                                         <option value="mobile_money" {{ old('mode_paiement') == 'mobile_money' ? 'selected' : '' }}>Mobile Money</option>
@@ -144,6 +162,9 @@
                                         <option value="virement" {{ old('mode_paiement') == 'virement' ? 'selected' : '' }}>Virement</option>
                                         <option value="chèque" {{ old('mode_paiement') == 'chèque' ? 'selected' : '' }}>Chèque</option>
                                     </select>
+                                    @error('mode_paiement')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-success" id="btn-submit-paiement">

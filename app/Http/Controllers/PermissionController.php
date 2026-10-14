@@ -31,6 +31,10 @@ class PermissionController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:permissions,name',
+        ], [
+            'name.required' => 'Le nom de la permission est obligatoire.',
+            'name.unique'   => 'Cette permission existe déjà.',
+            'name.max'      => 'Le nom de la permission ne peut pas dépasser 255 caractères.',
         ]);
 
         Permission::create([
@@ -68,6 +72,10 @@ class PermissionController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:permissions,name,' . $permission->id,
+        ], [
+            'name.required' => 'Le nom de la permission est obligatoire.',
+            'name.unique'   => 'Cette permission existe déjà.',
+            'name.max'      => 'Le nom de la permission ne peut pas dépasser 255 caractères.',
         ]);
 
         $permission->update(['name' => $validated['name']]);

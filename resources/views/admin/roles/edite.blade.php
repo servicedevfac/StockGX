@@ -43,7 +43,13 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label d-block mb-3">Permissions associées</label>
+                        <label class="form-label d-block mb-2">Permissions associées <span class="text-danger">*</span></label>
+                        @error('permissions')
+                            <div class="alert alert-danger py-2 px-3 mb-3 d-flex align-items-center gap-2 font-size-13">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>{{ $message }}</span>
+                            </div>
+                        @enderror
                         <div class="row g-3">
                             @foreach($permissions as $permission)
                                 <div class="col-md-4 col-sm-6">
@@ -52,7 +58,7 @@
                                                name="permissions[]"
                                                value="{{ $permission->name }}"
                                                id="perm-{{ $permission->id }}"
-                                               {{ $role->hasPermissionTo($permission->name) ? 'checked' : '' }}>
+                                               {{ (old('permissions') !== null ? in_array($permission->name, old('permissions', [])) : $role->hasPermissionTo($permission->name)) ? 'checked' : '' }}>
                                         <label class="form-check-label text-dark" for="perm-{{ $permission->id }}">
                                             {{ $permission->name }}
                                         </label>

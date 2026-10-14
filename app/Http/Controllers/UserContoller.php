@@ -71,6 +71,17 @@ class UserContoller extends Controller
             'password'  => 'required|string|min:6',
             'telephone' => 'required|string|max:255',
             'role'      => 'required|string|exists:roles,name',
+        ], [
+            'nom.required'       => 'Le nom est obligatoire.',
+            'prenom.required'    => 'Le prénom est obligatoire.',
+            'email.required'     => 'L\'adresse email est obligatoire.',
+            'email.email'        => 'L\'adresse email doit être valide.',
+            'email.unique'       => 'Cette adresse email est déjà utilisée par un autre compte.',
+            'password.required'  => 'Le mot de passe est obligatoire.',
+            'password.min'       => 'Le mot de passe doit comporter au moins 6 caractères.',
+            'telephone.required' => 'Le numéro de téléphone est obligatoire.',
+            'role.required'      => 'Le rôle est obligatoire.',
+            'role.exists'        => 'Le rôle sélectionné n\'existe pas.',
         ]);
 
         // Sécurité : interdire l'attribution du rôle super admin par un non super admin
@@ -140,11 +151,20 @@ class UserContoller extends Controller
             'role'      => 'required|string|exists:roles,name',
         ];
 
-        if ($request->filled('password')) {
-            $rules['password'] = 'string|min:6|confirmed';
-        }
+        $messages = [
+            'nom.required'          => 'Le nom est obligatoire.',
+            'prenom.required'       => 'Le prénom est obligatoire.',
+            'email.required'        => 'L\'adresse email est obligatoire.',
+            'email.email'           => 'L\'adresse email doit être valide.',
+            'email.unique'          => 'Cette adresse email est déjà utilisée par un autre compte.',
+            'password.min'          => 'Le mot de passe doit comporter au moins 6 caractères.',
+            'password.confirmed'    => 'La confirmation du mot de passe ne correspond pas.',
+            'telephone.required'    => 'Le numéro de téléphone est obligatoire.',
+            'role.required'         => 'Le rôle est obligatoire.',
+            'role.exists'           => 'Le rôle sélectionné n\'existe pas.',
+        ];
 
-        $validated = $request->validate($rules);
+        $validated = $request->validate($rules, $messages);
 
         // Sécurité : interdire l'élévation de privilèges vers super admin
         if ($validated['role'] === 'super admin' && !Auth::user()->hasRole('super admin')) {

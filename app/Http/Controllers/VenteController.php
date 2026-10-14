@@ -106,6 +106,17 @@ class VenteController extends Controller
             'produits.*.produit_id' => 'required|exists:produits,id',
             'produits.*.quantite'   => 'required|integer|min:1',
             'produits.*.prix'       => 'required|numeric|min:0',
+        ], [
+            'client_id.required'             => 'Veuillez sélectionner un client.',
+            'client_id.exists'               => 'Le client sélectionné n\'existe pas.',
+            'montant_total.required'         => 'Le montant total est obligatoire.',
+            'date_vente.required'            => 'La date de la vente est obligatoire.',
+            'mode_paiement.required'         => 'Veuillez sélectionner un mode de paiement.',
+            'produits.required'              => 'Veuillez ajouter au moins un produit à la vente.',
+            'produits.min'                   => 'La vente doit contenir au moins un produit.',
+            'produits.*.produit_id.required' => 'Le produit est obligatoire sur chaque ligne.',
+            'produits.*.quantite.required'   => 'La quantité est obligatoire.',
+            'produits.*.quantite.min'        => 'La quantité doit être d\'au moins 1.',
         ]);
 
         $montantTotal = (float) $validated['montant_total'];

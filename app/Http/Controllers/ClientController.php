@@ -49,9 +49,13 @@ class ClientController extends Controller
     {
         $validated = $request->validate([
             'nom'       => 'required|string|max:255',
-            'prenom'    => 'required|string|max:255',
+            'prenom'    => 'nullable|string|max:255',
             'telephone' => 'nullable|string|max:20',
             'adresse'   => 'nullable|string|max:255',
+        ], [
+            'nom.required' => 'Le nom du client est obligatoire.',
+            'nom.max'      => 'Le nom ne peut pas dépasser 255 caractères.',
+            'telephone.max'=> 'Le numéro de téléphone ne peut pas dépasser 20 caractères.',
         ]);
 
         DB::transaction(function () use ($validated) {
@@ -116,9 +120,13 @@ class ClientController extends Controller
 
         $validated = $request->validate([
             'nom'       => 'required|string|max:255',
-            'prenom'    => 'required|string|max:255',
+            'prenom'    => 'nullable|string|max:255',
             'telephone' => 'nullable|string|max:20',
             'adresse'   => 'nullable|string|max:255',
+        ], [
+            'nom.required' => 'Le nom du client est obligatoire.',
+            'nom.max'      => 'Le nom ne peut pas dépasser 255 caractères.',
+            'telephone.max'=> 'Le numéro de téléphone ne peut pas dépasser 20 caractères.',
         ]);
 
         $client->update([

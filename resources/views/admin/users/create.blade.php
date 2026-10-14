@@ -59,8 +59,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="telephone" class="form-label">Numéro de téléphone</label>
-                            <input type="tel" class="form-control @error('telephone') is-invalid @enderror" id="telephone" name="telephone" value="{{ old('telephone') }}" placeholder="Ex: +225 07 00 00 00 00">
+                            <label for="telephone" class="form-label">Numéro de téléphone <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control @error('telephone') is-invalid @enderror" id="telephone" name="telephone" value="{{ old('telephone') }}" placeholder="Ex: +225 07 00 00 00 00" required>
                             @error('telephone')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

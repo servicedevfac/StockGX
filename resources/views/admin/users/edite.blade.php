@@ -60,8 +60,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="telephone" class="form-label">Numéro de téléphone</label>
-                            <input type="tel" class="form-control @error('telephone') is-invalid @enderror" id="telephone" name="telephone" value="{{ old('telephone', $user->telephone) }}" placeholder="Ex: +225 07 00 00 00 00">
+                            <label for="telephone" class="form-label">Numéro de téléphone <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control @error('telephone') is-invalid @enderror" id="telephone" name="telephone" value="{{ old('telephone', $user->telephone) }}" placeholder="Ex: +225 07 00 00 00 00" required>
                             @error('telephone')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -73,12 +73,12 @@
                             @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <small class="text-muted">Laissez vide si vous ne souhaitez pas modifier le mot de passe.</small>
+                            <small class="text-muted">Laissez vide si vous ne souhaitez pas modifier le mot de passe (min 6 car.).</small>
                         </div>
 
                         <div class="col-md-6">
                             <label for="password_confirmation" class="form-label">Confirmer le mot de passe</label>
-                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Retapez le nouveau mot de passe">
+                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control @error('password') is-invalid @enderror" placeholder="Retapez le nouveau mot de passe">
                         </div>
 
                         <div class="col-md-6">

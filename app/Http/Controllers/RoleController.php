@@ -37,9 +37,15 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'        => 'required|string|max:255|unique:roles,name',
-            'permissions' => 'required|array',
+            'name'          => 'required|string|max:255|unique:roles,name',
+            'permissions'   => 'required|array|min:1',
             'permissions.*' => 'exists:permissions,name',
+        ], [
+            'name.required'        => 'Le nom du rôle est obligatoire.',
+            'name.unique'          => 'Ce nom de rôle existe déjà.',
+            'permissions.required' => 'Veuillez sélectionner au moins une permission pour ce rôle.',
+            'permissions.array'    => 'Le format des permissions est invalide.',
+            'permissions.min'      => 'Veuillez sélectionner au moins une permission.',
         ]);
 
         $role = Role::create([
@@ -78,7 +84,7 @@ class RoleController extends Controller
         $isProtected = in_array(strtolower($role->name), self::PROTECTED_ROLES);
 
         $rules = [
-            'permissions'   => 'required|array',
+            'permissions'   => 'required|array|min:1',
             'permissions.*' => 'exists:permissions,name',
         ];
 
@@ -86,7 +92,13 @@ class RoleController extends Controller
             $rules['name'] = 'required|string|max:255|unique:roles,name,' . $role->id;
         }
 
-        $validated = $request->validate($rules);
+        $validated = $request->validate($rules, [
+            'name.required'        => 'Le nom du rôle est obligatoire.',
+            'name.unique'          => 'Ce nom de rôle existe déjà.',
+            'permissions.required' => 'Veuillez sélectionner au moins une permission pour ce rôle.',
+            'permissions.array'    => 'Le format des permissions est invalide.',
+            'permissions.min'      => 'Veuillez sélectionner au moins une permission.',
+        ]);
 
         if (!$isProtected && isset($validated['name'])) {
             $role->update(['name' => $validated['name']]);

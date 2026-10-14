@@ -44,11 +44,22 @@ class ProduitController extends Controller
     {
         $this->checkAdminPermission('create');
 
+        $messages = [
+            'nom.required'          => 'Le nom du produit est obligatoire.',
+            'nom.max'               => 'Le nom du produit ne peut pas dépasser 255 caractères.',
+            'prix.required'         => 'Le prix du produit est obligatoire.',
+            'prix.numeric'          => 'Le prix doit être un nombre valide.',
+            'prix.min'              => 'Le prix ne peut pas être négatif.',
+            'seuil_alerte.required' => 'Le seuil d\'alerte est obligatoire.',
+            'seuil_alerte.integer'  => 'Le seuil d\'alerte doit être un nombre entier.',
+            'seuil_alerte.min'      => 'Le seuil d\'alerte ne peut pas être négatif.',
+        ];
+
         $validated = $request->validate([
             'nom'          => 'required|string|max:255',
             'prix'         => 'required|numeric|min:0',
             'seuil_alerte' => 'required|integer|min:0',
-        ]);
+        ], $messages);
 
         Produit::create([
             'nom'             => $validated['nom'],
@@ -85,11 +96,22 @@ class ProduitController extends Controller
     {
         $this->checkAdminPermission('edit');
 
+        $messages = [
+            'nom.required'          => 'Le nom du produit est obligatoire.',
+            'nom.max'               => 'Le nom du produit ne peut pas dépasser 255 caractères.',
+            'prix.required'         => 'Le prix du produit est obligatoire.',
+            'prix.numeric'          => 'Le prix doit être un nombre valide.',
+            'prix.min'              => 'Le prix ne peut pas être négatif.',
+            'seuil_alerte.required' => 'Le seuil d\'alerte est obligatoire.',
+            'seuil_alerte.integer'  => 'Le seuil d\'alerte doit être un nombre entier.',
+            'seuil_alerte.min'      => 'Le seuil d\'alerte ne peut pas être négatif.',
+        ];
+
         $validated = $request->validate([
             'nom'          => 'required|string|max:255',
             'prix'         => 'required|numeric|min:0',
             'seuil_alerte' => 'required|integer|min:0',
-        ]);
+        ], $messages);
 
         $produit->update([
             'nom'          => $validated['nom'],
