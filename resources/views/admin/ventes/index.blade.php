@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return new Intl.NumberFormat('fr-FR').format(val) + " FCFA";
     }
 
-    function createChart(labels, ventes, paiements, reste, depenses, benefice, type="line") {
+    function createChart(labels, ventes, paiements, reste, type="line") {
         if(window.ventesChart && typeof window.ventesChart.destroy === 'function') {
             window.ventesChart.destroy();
         }
@@ -235,10 +235,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const gradientReste = ctx.createLinearGradient(0, 0, 0, 400);
         gradientReste.addColorStop(0, 'rgba(220, 53, 69, 0.7)');
         gradientReste.addColorStop(1, 'rgba(220, 53, 69, 0.1)');
-
-        const gradientBenefice = ctx.createLinearGradient(0, 0, 0, 400);
-        gradientBenefice.addColorStop(0, 'rgba(14, 165, 233, 0.7)');
-        gradientBenefice.addColorStop(1, 'rgba(14, 165, 233, 0.1)');
 
         window.ventesChart = new Chart(ctx, {
             type: type,
@@ -268,14 +264,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         borderColor: 'rgba(220, 53, 69,1)',
                         fill: type!=="pie",
                         tension: 0.4
-                    },
-                    {
-                        label: 'Bénéfice Net',
-                        data: benefice || [],
-                        backgroundColor: type==="pie"?undefined:gradientBenefice,
-                        borderColor: 'rgba(14, 165, 233, 1)',
-                        fill: type!=="pie",
-                        tension: 0.4
                     }
                 ]
             },
@@ -289,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     title: {
                         display: true,
-                        text: 'Évolution des ventes & Bénéfice'
+                        text: 'Évolution des ventes'
                     }
                 },
                 scales: type!=="pie" ? { y: { beginAtZero: true } } : {}
@@ -306,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`/ventes-filtrees?date_debut=${dateDebut}&date_fin=${dateFin}&q=${recherche}&periode=${periode}`)
             .then(r => r.json())
             .then(data => {
-                createChart(data.labels, data.ventes, data.paiements, data.reste, data.depenses, data.benefice, document.getElementById('typeGraph').value);
+                createChart(data.labels, data.ventes, data.paiements, data.reste, document.getElementById('typeGraph').value);
             })
             .catch(err => console.error(err));
     }
@@ -394,14 +382,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const ventes = window.ventesChart.data.datasets[0].data;
         const paiements = window.ventesChart.data.datasets[1].data;
         const reste = window.ventesChart.data.datasets[2].data;
-        const benefice = window.ventesChart.data.datasets[3]?.data || [];
 
         const ws = XLSX.utils.json_to_sheet(labels.map((l,i)=>({
             Date: l,
             Ventes: ventes[i],
             Paiements: paiements[i],
-            Reste: reste[i],
-            Benefice: benefice[i] ?? 0
+            Reste: reste[i]
         })));
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Ventes");

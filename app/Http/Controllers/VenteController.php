@@ -429,7 +429,7 @@ class VenteController extends Controller
     }
 
     /**
-     * Données graphiques filtrées (Ventes, Paiements, Dépenses, Bénéfices)
+     * Données graphiques filtrées (Ventes, Paiements, Reste)
      */
     public function ventesFiltrees(Request $request)
     {
@@ -443,25 +443,18 @@ class VenteController extends Controller
         $driver = DB::connection()->getDriverName();
 
         switch ($periode) {
-            case 'jour':
-                $dateExpr = $driver === 'sqlite' ? "DATE(ventes.date_vente)" : "DATE(ventes.date_vente)";
-                $dateExprDep = $driver === 'sqlite' ? "DATE(depenses.date_depense)" : "DATE(depenses.date_depense)";
-                break;
             case 'semaine':
                 $dateExpr = $driver === 'sqlite' ? "strftime('%Y-%W', ventes.date_vente)" : "YEARWEEK(ventes.date_vente, 1)";
-                $dateExprDep = $driver === 'sqlite' ? "strftime('%Y-%W', depenses.date_depense)" : "YEARWEEK(depenses.date_depense, 1)";
                 break;
             case 'mois':
                 $dateExpr = $driver === 'sqlite' ? "strftime('%Y-%m', ventes.date_vente)" : "DATE_FORMAT(ventes.date_vente, '%Y-%m')";
-                $dateExprDep = $driver === 'sqlite' ? "strftime('%Y-%m', depenses.date_depense)" : "DATE_FORMAT(depenses.date_depense, '%Y-%m')";
                 break;
             case 'annee':
                 $dateExpr = $driver === 'sqlite' ? "strftime('%Y', ventes.date_vente)" : "YEAR(ventes.date_vente)";
-                $dateExprDep = $driver === 'sqlite' ? "strftime('%Y', depenses.date_depense)" : "YEAR(depenses.date_depense)";
                 break;
+            case 'jour':
             default:
-                $dateExpr = "DATE(ventes.date_vente)";
-                $dateExprDep = "DATE(depenses.date_depense)";
+                $dateExpr = $driver === 'sqlite' ? "DATE(ventes.date_vente)" : "DATE(ventes.date_vente)";
         }
 
         // 1. Ventes
@@ -489,41 +482,25 @@ class VenteController extends Controller
 
         $paiements = $paiementsQuery->groupBy('periode')->orderBy('periode')->get()->keyBy('periode');
 
-        // 3. Dépenses
-        $depenses = DB::table('depenses')
-            ->select(DB::raw("$dateExprDep as periode"), DB::raw("SUM(montant) as total"))
-            ->whereBetween('depenses.date_depense', [$dateDebut->format('Y-m-d'), $dateFin->format('Y-m-d')])
-            ->groupBy('periode')
-            ->orderBy('periode')
-            ->get()
-            ->keyBy('periode');
-
-        // 4. Synthèse
-        $allPeriods = $ventes->keys()->merge($paiements->keys())->merge($depenses->keys())->unique()->sort()->values();
+        // 3. Synthèse
+        $allPeriods = $ventes->keys()->merge($paiements->keys())->unique()->sort()->values();
 
         $data = [
             'labels'    => [],
             'ventes'    => [],
             'paiements' => [],
             'reste'     => [],
-            'depenses'  => [],
-            'benefice'  => [],
         ];
 
         foreach ($allPeriods as $pKey) {
             $totalVentes = $ventes->has($pKey) ? (float) $ventes[$pKey]->total : 0;
             $totalPaiements = $paiements->has($pKey) ? (float) $paiements[$pKey]->total : 0;
-            $totalDepenses = $depenses->has($pKey) ? (float) $depenses[$pKey]->total : 0;
-
             $reste = max(0, $totalVentes - $totalPaiements);
-            $benefice = $totalPaiements - $totalDepenses;
 
             $data['labels'][] = $pKey;
             $data['ventes'][] = round($totalVentes, 2);
             $data['paiements'][] = round($totalPaiements, 2);
             $data['reste'][] = round($reste, 2);
-            $data['depenses'][] = round($totalDepenses, 2);
-            $data['benefice'][] = round($benefice, 2);
         }
 
         return response()->json($data);
