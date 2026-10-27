@@ -260,9 +260,7 @@ html, body {
 
 /* ── Topbar ───────────────────────────────────────────────── */
 .navbar-custom {
-    background: rgba(255, 255, 255, .85) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
+    background: #ffffff !important;
     border-bottom: 1px solid var(--border) !important;
     box-shadow: var(--shadow-sm) !important;
 }
@@ -1403,9 +1401,7 @@ body {
     top: 0;
     z-index: 1020;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: #ffffff !important;
     border-bottom: 1px solid var(--border, #e2e8f0);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
@@ -1430,6 +1426,40 @@ body {
     background: rgba(0, 0, 0, 0.08);
     color: var(--primary, #1a237e);
     outline: none;
+}
+
+/* ── Topbar Logo Reset (Fix 260px collision from style.css) ── */
+.navbar-custom .logo-box,
+.navbar-custom .topbar-brand-logo {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: 44px !important;
+    position: static !important;
+    top: auto !important;
+    padding: 0 !important;
+    margin: 0 0 0 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: auto !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.navbar-custom .logo-box a,
+.navbar-custom .topbar-brand-logo a {
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+    text-decoration: none !important;
+}
+
+.navbar-custom .logo-box img,
+.navbar-custom .topbar-brand-logo img {
+    height: 34px !important;
+    max-height: 34px !important;
+    width: auto !important;
+    object-fit: contain !important;
 }
 
 /* ── Desktop View (>= 992px) ──────────────────────────────── */
@@ -1567,14 +1597,22 @@ body {
         padding: 0 6px !important;
     }
 
-    .navbar-custom .logo-box {
+    .navbar-custom .logo-box,
+    .navbar-custom .topbar-brand-logo {
         display: flex !important;
-        align-items: center;
-        margin-left: 6px;
+        align-items: center !important;
+        margin-left: 6px !important;
+        height: auto !important;
+        max-height: 38px !important;
+        position: static !important;
     }
 
-    .navbar-custom .logo-box img {
-        max-height: 36px !important;
+    .navbar-custom .logo-box img,
+    .navbar-custom .topbar-brand-logo img {
+        height: 32px !important;
+        max-height: 32px !important;
+        width: auto !important;
+        object-fit: contain !important;
     }
 
     /* Fixed Footer on Mobile / Tablet */
