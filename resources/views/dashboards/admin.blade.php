@@ -85,7 +85,7 @@
     <div class="row mt-3 gx-3 gy-3" id="indicator-cards-container">
         {{-- Encaissé --}}
         <div class="col-sm-6 col-lg-3 indicator-card-col" id="card-encaisse">
-            <div class="card modern-stat stat-blue">
+            <div class="card modern-stat stat-blue h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
@@ -102,7 +102,7 @@
 
         {{-- Chiffre d'affaires --}}
         <div class="col-sm-6 col-lg-3 indicator-card-col" id="card-ca">
-            <div class="card modern-stat stat-purple">
+            <div class="card modern-stat stat-purple h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
@@ -119,7 +119,7 @@
 
         {{-- Reste à payer --}}
         <div class="col-sm-6 col-lg-3 indicator-card-col" id="card-reste-payer">
-            <div class="card modern-stat stat-red">
+            <div class="card modern-stat stat-red h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
@@ -136,7 +136,7 @@
 
         {{-- Dépenses --}}
         <div class="col-sm-6 col-lg-3 indicator-card-col" id="card-depenses">
-            <div class="card modern-stat stat-gold">
+            <div class="card modern-stat stat-gold h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
@@ -153,7 +153,7 @@
 
         {{-- Bénéfice Net --}}
         <div class="col-sm-6 col-lg-3 indicator-card-col" id="card-benefice">
-            <div class="card modern-stat {{ $beneficeNetPeriode >= 0 ? 'stat-teal' : 'stat-red' }}">
+            <div class="card modern-stat {{ $beneficeNetPeriode >= 0 ? 'stat-teal' : 'stat-red' }} h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
@@ -170,7 +170,7 @@
 
         {{-- Ventes réalisées --}}
         <div class="col-sm-6 col-lg-3 indicator-card-col" id="card-nb-ventes">
-            <div class="card modern-stat stat-green">
+            <div class="card modern-stat stat-green h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
@@ -187,7 +187,7 @@
 
         {{-- Panier moyen --}}
         <div class="col-sm-6 col-lg-3 indicator-card-col" id="card-panier-moyen">
-            <div class="card modern-stat stat-blue">
+            <div class="card modern-stat stat-blue h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>

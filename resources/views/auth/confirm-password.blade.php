@@ -30,11 +30,7 @@
       position: fixed;
       inset: 0;
       z-index: 0;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(26,35,126,.6) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(249,168,37,.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 80%, rgba(26,35,126,.4) 0%, transparent 50%),
-        #0d1642;
+      background: #0d1642;
     }
 
     .bg-pattern::before {
@@ -179,8 +175,7 @@
       padding: 14px;
       border: none;
       border-radius: 12px;
-      background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #f9a825 100%);
-      background-size: 200% 200%;
+      background: #1a237e;
       color: #ffffff;
       font-size: 15px;
       font-weight: 600;
