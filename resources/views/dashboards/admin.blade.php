@@ -367,7 +367,7 @@
                         <h4 class="card-title mb-0">Dernières dépenses d'exploitation</h4>
                     </div>
                     <div>
-                        <a href="{{ route('depenses.index') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">
+                        <a href="{{ route('depenses.index') }}" class="btn btn-sm btn-light rounded-pill px-3">
                             Toutes les dépenses <i class="fas fa-arrow-right ms-1"></i>
                         </a>
                     </div>
