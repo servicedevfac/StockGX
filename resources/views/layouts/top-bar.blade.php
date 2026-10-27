@@ -7,9 +7,9 @@
             </button>
 
             <!-- Brand Logo (visible on mobile/tablet) -->
-            <div class="logo-box d-lg-none">
+            <div class="logo-box topbar-brand-logo d-lg-none" style="height: 38px; display: flex; align-items: center; position: static;">
                 <a href="{{url('dashboard')}}" class="d-flex align-items-center">
-                    <img src="{{url('assets/images/logo-darkc.png')}}" alt="STOKGX" style="height: 38px; object-fit: contain;">
+                    <img src="{{url('assets/images/logo-darkc.png')}}" alt="STOKGX" style="height: 32px; max-height: 32px; width: auto; object-fit: contain;">
                 </a>
             </div>
         </div>
