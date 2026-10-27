@@ -230,7 +230,7 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header redoff d-flex align-items-center gap-2">
-                    <i class="fas fa-exclamation-circle"></i>
+                    <i class="fas fa-exclamation-circle text-white"></i>
                     <h4 class="card-title mb-0">Produits en stock faible</h4>
                 </div>
                 <div class="card-body">
@@ -276,7 +276,7 @@
         <div class="col-xl-6">
             <div class="card">
                 <div class="card-header card-heade d-flex align-items-center gap-2">
-                    <i class="fas fa-users"></i>
+                    <i class="fas fa-users text-white"></i>
                     <h4 class="card-title mb-0">10 derniers clients</h4>
                 </div>
                 <div class="card-body">
@@ -321,7 +321,7 @@
         <div class="col-xl-6">
             <div class="card">
                 <div class="card-header card-heade d-flex align-items-center gap-2">
-                    <i class="fas fa-shopping-cart"></i>
+                    <i class="fas fa-shopping-cart text-white"></i>
                     <h4 class="card-title mb-0">10 dernières ventes</h4>
                 </div>
                 <div class="card-body">
@@ -363,7 +363,7 @@
             <div class="card">
                 <div class="card-header card-heade d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center gap-2">
-                        <i class="fas fa-receipt"></i>
+                        <i class="fas fa-receipt text-white"></i>
                         <h4 class="card-title mb-0">Dernières dépenses d'exploitation</h4>
                     </div>
                     <div>
